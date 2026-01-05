@@ -10,51 +10,47 @@
 </head>
 <body>
 
-<div class="main-wrapper">
-  <header class="editor-top">
-    <div class="header-content">
-      <div class="title-area">
-        <h2>Resume Builder</h2>
-        <button id="theme-toggle" onclick="toggleTheme()" class="btn-icon">🌙</button>
-      </div>
-      
-      <div class="input-grid">
-        <div class="col">
-          <select id="template" onchange="generate()">
-            <option value="classic">Classic Professional</option>
-            <option value="modern">Modern Minimalist</option>
-          </select>
-          <input id="name" placeholder="Full Name" oninput="generate()">
-          <input id="email" placeholder="Email Address" oninput="generate()">
-          <input id="phone" placeholder="Phone Number" oninput="generate()">
-        </div>
-        
-        <div class="col">
-          <textarea id="summary" placeholder="Professional Summary..." oninput="generate()"></textarea>
-          <textarea id="education" placeholder="Education (School | Year)" oninput="generate()"></textarea>
-        </div>
-
-        <div class="col">
-          <textarea id="experience" placeholder="Experience (Role | Year)" oninput="generate()"></textarea>
-          <textarea id="skills" placeholder="Skills (Comma separated)" oninput="generate()"></textarea>
-          <div class="actions">
-            <button onclick="downloadPDF()" class="btn-primary">Download PDF</button>
-            <button onclick="downloadWord()" class="btn-secondary">Word</button>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="app-container">
+  <header class="app-header">
+    <h1>Resume Builder</h1>
+    <button id="theme-toggle" onclick="toggleTheme()" class="btn-icon">🌙</button>
   </header>
 
-  <main class="preview-bottom">
-    <div id="resume-container">
-        <div id="resume" class="classic"></div>
+  <main class="editor-main">
+    <div class="input-group">
+      <select id="template">
+        <option value="classic">Classic Professional</option>
+        <option value="modern">Modern Minimalist</option>
+      </select>
+      <input id="name" placeholder="Full Name">
+      <input id="email" placeholder="Email Address">
+      <input id="phone" placeholder="Phone Number">
+    </div>
+
+    <div class="input-group">
+      <textarea id="summary" placeholder="Professional Summary..."></textarea>
+      <textarea id="education" placeholder="Education (School | Year)"></textarea>
+      <textarea id="experience" placeholder="Experience (Role | Year)"></textarea>
+      <textarea id="skills" placeholder="Skills (Comma separated)"></textarea>
+    </div>
+
+    <div class="action-grid">
+      <button onclick="showPreview()" class="btn-preview">See Preview</button>
+      <div class="download-btns">
+        <button onclick="downloadPDF()" class="btn-primary">Save PDF</button>
+        <button onclick="downloadWord()" class="btn-secondary">Save Word</button>
+      </div>
+      <button onclick="clearAll()" class="btn-clear">Clear All</button>
     </div>
   </main>
 
   <footer class="site-footer">
     <p>© 2026 Created by Oguma Austine</p>
   </footer>
+</div>
+
+<div id="print-area" style="display:none;">
+    <div id="resume"></div>
 </div>
 
 <script src="script.js"></script>
