@@ -4,10 +4,35 @@
   <meta charset="UTF-8">
   <title>ProResume Builder | Oguma Austine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <meta name="author" content="Oguma Austine">
+  <meta name="description" content="Resume Generator is a free online resume builder created by Oguma Austine to help users create professional resumes easily.">
+
+  <!-- SoftwareApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Resume Generator",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "url": "https://macoguma.github.io/resume-generator/",
+    "creator": {
+      "@type": "Person",
+      "name": "Oguma Austine",
+      "url": "https://macoguma.github.io/success-/"
+    }
+  }
+  </script>
+
+  <!-- Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.7.0/docx.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="app-container">
@@ -45,12 +70,17 @@
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 Created by Oguma Austine</p>
+    <p>
+      © 2026 Created by 
+      <a href="https://macoguma.github.io/success-/" rel="author me">
+        Oguma Austine
+      </a>
+    </p>
   </footer>
 </div>
 
 <div id="print-area" style="display:none;">
-    <div id="resume"></div>
+  <div id="resume"></div>
 </div>
 
 <script src="script.js"></script>
