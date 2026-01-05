@@ -15,10 +15,10 @@ function generate() {
     resume.className = template;
 
     const vals = {
-        name: document.getElementById("name").value || "Oguma Austine Ouma",
-        email: document.getElementById("email").value || "austineouma748@gmail.com",
-        phone: document.getElementById("phone").value || "0118289255",
-        summary: document.getElementById("summary").value || "Student at Pwani University...",
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        summary: document.getElementById("summary").value,
         edu: document.getElementById("education").value,
         exp: document.getElementById("experience").value,
         skills: document.getElementById("skills").value
@@ -29,12 +29,11 @@ function generate() {
 
     resume.innerHTML = `
         <h1>${vals.name}</h1>
-        <p style="text-align:center">${vals.email} | ${vals.phone}</p>
-        <hr>
-        <div>
-            <h3>Professional Summary</h3>
-            <p>${vals.summary}</p>
-        </div>
+        <p style="text-align:center">
+            ${vals.email}${vals.email && vals.phone ? ' | ' : ''}${vals.phone}
+        </p>
+        
+        ${vals.summary ? `<div><h3>Professional Summary</h3><p>${vals.summary}</p></div>` : ''}
         ${vals.edu ? `<div><h3>Education</h3><ul>${formatList(vals.edu)}</ul></div>` : ''}
         ${vals.exp ? `<div><h3>Experience</h3><ul>${formatList(vals.exp)}</ul></div>` : ''}
         ${vals.skills ? `<div><h3>Skills</h3>${skillsHTML}</div>` : ''}
@@ -49,5 +48,18 @@ function toggleTheme() {
 
 function downloadPDF() { window.print(); }
 
-// Initialize
+function downloadWord() {
+    const { Document, Packer, Paragraph, HeadingLevel } = window.docx;
+    const name = document.getElementById("name").value || "Resume";
+    const doc = new Document({
+        sections: [{
+            children: [
+                new Paragraph({ text: name, heading: HeadingLevel.TITLE }),
+                new Paragraph(document.getElementById("summary").value),
+            ]
+        }]
+    });
+    Packer.toBlob(doc).then(blob => saveAs(blob, `${name}_Resume.docx`));
+}
+
 window.onload = generate;
