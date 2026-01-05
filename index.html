@@ -10,50 +10,46 @@
 </head>
 <body>
 
-<div class="app-container">
-  <aside class="editor-side">
-    <div class="header-flex">
-      <h2>Resume Builder</h2>
-      <button id="theme-toggle" onclick="toggleTheme()" class="btn-icon" title="Toggle Dark Mode">🌙</button>
+<div class="main-wrapper">
+  <header class="editor-top">
+    <div class="header-content">
+      <div class="title-area">
+        <h2>Resume Builder</h2>
+        <button id="theme-toggle" onclick="toggleTheme()" class="btn-icon">🌙</button>
+      </div>
+      
+      <div class="input-grid">
+        <div class="col">
+          <select id="template" onchange="generate()">
+            <option value="classic">Classic Professional</option>
+            <option value="modern">Modern Minimalist</option>
+          </select>
+          <input id="name" placeholder="Full Name" oninput="generate()">
+          <input id="email" placeholder="Email Address" oninput="generate()">
+          <input id="phone" placeholder="Phone Number" oninput="generate()">
+        </div>
+        
+        <div class="col">
+          <textarea id="summary" placeholder="Professional Summary..." oninput="generate()"></textarea>
+          <textarea id="education" placeholder="Education (School | Year)" oninput="generate()"></textarea>
+        </div>
+
+        <div class="col">
+          <textarea id="experience" placeholder="Experience (Role | Year)" oninput="generate()"></textarea>
+          <textarea id="skills" placeholder="Skills (Comma separated)" oninput="generate()"></textarea>
+          <div class="actions">
+            <button onclick="downloadPDF()" class="btn-primary">PDF</button>
+            <button onclick="downloadWord()" class="btn-secondary">Word</button>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <div class="control-group">
-      <label>Template Style</label>
-      <select id="template" onchange="generate()">
-        <option value="classic">Classic Professional</option>
-        <option value="modern">Modern Minimalist</option>
-      </select>
-    </div>
+  </header>
 
-    <input id="name" placeholder="Full Name" oninput="generate()">
-    <input id="email" placeholder="Email Address" oninput="generate()">
-    <input id="phone" placeholder="Phone Number" oninput="generate()">
-
-    <label>Professional Summary</label>
-    <textarea id="summary" placeholder="Highly motivated student..." oninput="generate()"></textarea>
-    
-    <label>Education (Use | to separate school and year)</label>
-    <textarea id="education" placeholder="Pwani University | 2024 – Present" oninput="generate()"></textarea>
-    
-    <label>Work Experience</label>
-    <textarea id="experience" placeholder="Project Developer | 2025" oninput="generate()"></textarea>
-    
-    <label>Skills (Comma separated)</label>
-    <textarea id="skills" placeholder="HTML, CSS, JavaScript, Git" oninput="generate()"></textarea>
-
-    <div class="actions">
-      <button onclick="downloadPDF()" class="btn-primary">Download PDF</button>
-      <button onclick="downloadWord()" class="btn-secondary">Word (.docx)</button>
-      <button onclick="generateCoverLetter()" class="btn-text">Cover Letter</button>
-    </div>
-  </aside>
-
-  <main class="preview-side">
+  <main class="preview-bottom">
     <div id="resume" class="classic"></div>
   </main>
 </div>
-
-<footer>© 2026 Oguma Austine. Built with passion.</footer>
 
 <script src="script.js"></script>
 </body>
