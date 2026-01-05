@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Resume Generator | Oguma Austine</title>
+  <title>ProResume Builder | Oguma Austine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.7.0/docx.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -38,7 +38,7 @@
           <textarea id="experience" placeholder="Experience (Role | Year)" oninput="generate()"></textarea>
           <textarea id="skills" placeholder="Skills (Comma separated)" oninput="generate()"></textarea>
           <div class="actions">
-            <button onclick="downloadPDF()" class="btn-primary">PDF</button>
+            <button onclick="downloadPDF()" class="btn-primary">Download PDF</button>
             <button onclick="downloadWord()" class="btn-secondary">Word</button>
           </div>
         </div>
@@ -47,8 +47,14 @@
   </header>
 
   <main class="preview-bottom">
-    <div id="resume" class="classic"></div>
+    <div id="resume-container">
+        <div id="resume" class="classic"></div>
+    </div>
   </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Created by Oguma Austine</p>
+  </footer>
 </div>
 
 <script src="script.js"></script>
