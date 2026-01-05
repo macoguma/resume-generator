@@ -21,7 +21,6 @@ body {
   transition: 0.3s;
 }
 
-/* Vertical Layout */
 .main-wrapper {
   display: flex;
   flex-direction: column;
@@ -50,16 +49,10 @@ body {
   margin-bottom: 15px;
 }
 
-/* Grid for Inputs */
 .input-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 15px;
-}
-
-@media (max-width: 768px) {
-  .input-grid { grid-template-columns: 1fr; }
-  .editor-top { position: static; }
 }
 
 input, textarea, select {
@@ -73,9 +66,12 @@ input, textarea, select {
   box-sizing: border-box;
 }
 
-textarea { height: 60px; }
+textarea { height: 65px; }
 
-/* Resume Preview Area */
+.btn-icon { background: var(--border); cursor: pointer; border: none; padding: 5px 10px; border-radius: 8px; }
+.btn-primary { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; }
+.btn-secondary { background: #64748b; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; }
+
 .preview-bottom {
   padding: 40px 20px;
   display: flex;
@@ -91,19 +87,26 @@ textarea { height: 60px; }
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* Resume Styling (Shared) */
-#resume h1 { text-align: center; margin-bottom: 5px; }
-#resume h3 { border-bottom: 2px solid #eee; margin-top: 20px; text-transform: uppercase; font-size: 14px; }
+#resume h1 { text-align: center; margin-bottom: 5px; font-size: 24px; }
+#resume h3 { border-bottom: 2px solid #eee; margin-top: 20px; text-transform: uppercase; font-size: 14px; padding-bottom: 5px; }
+#resume ul { list-style: none; padding: 0; }
 #resume li { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px; }
 
 .skill-badge {
   background: #f1f5f9;
-  padding: 3px 10px;
-  border-radius: 4px;
+  padding: 4px 12px;
+  border-radius: 15px;
   font-size: 12px;
   font-weight: bold;
   margin: 2px;
   display: inline-block;
+  border: 1px solid #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .input-grid { grid-template-columns: 1fr; }
+  .editor-top { position: static; }
+  #resume { width: 100%; padding: 10mm; }
 }
 
 @media print {
