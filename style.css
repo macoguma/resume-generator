@@ -1,0 +1,47 @@
+body {
+  font-family: Arial;
+  margin: 20px;
+}
+
+input, textarea, select {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#resume {
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+/* Classic template */
+.classic h1 {
+  text-align: center;
+}
+
+/* Modern template */
+.modern {
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+/* Footer styling */
+footer {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 40px;
+  color: #666;
+}
+
+/* Print-only rules */
+@media print {
+  input, textarea, select, button, h2, hr {
+    display: none;
+  }
+  body {
+    margin: 0;
+  }
+  footer {
+    display: none; /* hides footer in PDF */
+  }
+}
