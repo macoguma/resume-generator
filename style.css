@@ -1,72 +1,85 @@
+:root {
+  --primary: #2563eb;
+  --bg: #f8fafc;
+  --text: #1e293b;
+}
+
 body {
-  font-family: Arial;
-  margin: 20px;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-container {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.editor-side {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  height: fit-content;
 }
 
 input, textarea, select {
-  display: block;
   width: 100%;
-  margin-bottom: 10px;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button {
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn-primary { background: var(--primary); color: white; }
+.btn-secondary { background: #64748b; color: white; }
+
+/* The Resume Paper Look */
 #resume {
-  padding: 20px;
-  border: 1px solid #ccc;
+  background: white;
+  width: 210mm; /* A4 Width */
+  min-height: 297mm;
+  padding: 20mm;
+  margin: 0 auto;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
 
-/* Classic template */
-.classic h1 {
-  text-align: center;
-}
+.modern { border-top: 10px solid var(--primary); }
+.modern h1 { color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
 
-/* Modern template */
-.modern {
-  background: #f4f4f4;
-  padding: 20px;
-}
-
-/* Footer styling */
-footer {
-  text-align: center;
-  font-size: 12px;
-  margin-top: 40px;
-  color: #666;
-}
-
-/* Print-only rules */
 @media print {
-  input, textarea, select, button, h2, hr {
-    display: none;
-  }
-  body {
-    margin: 0;
-  }
-  footer {
-    display: none; /* hides footer in PDF */
-  }
+  .editor-side, footer { display: none; }
+  .app-container { display: block; padding: 0; }
+  #resume { box-shadow: none; margin: 0; width: 100%; }
 }
 
-/* Resume formatting */
-#resume h1 {
-  font-size: 24px;
-  margin-bottom: 5px;
-  color: #2c3e50;
-}
-
-#resume h3 {
-  font-size: 18px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-  border-bottom: 1px solid #000;
-  padding-bottom: 3px;
-}
-
-#resume p {
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-#resume ul {
-  margin-left: 20px;
-  font-size: 14px;
+@media (max-width: 900px) {
+  .app-container { grid-template-columns: 1fr; }
+  #resume { width: 100%; box-sizing: border-box; }
 }
