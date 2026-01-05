@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ProResume | Oguma Austine</title>
+  <title>ProResume Builder | Oguma Austine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.7.0/docx.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -12,7 +12,10 @@
 
 <div class="app-container">
   <aside class="editor-side">
-    <h2>Resume Builder</h2>
+    <div class="header-flex">
+      <h2>Resume Builder</h2>
+      <button id="theme-toggle" onclick="toggleTheme()" class="btn-icon" title="Toggle Dark Mode">🌙</button>
+    </div>
     
     <div class="control-group">
       <label>Template Style</label>
@@ -26,10 +29,17 @@
     <input id="email" placeholder="Email Address" oninput="generate()">
     <input id="phone" placeholder="Phone Number" oninput="generate()">
 
-    <textarea id="summary" placeholder="Professional Summary..." oninput="generate()"></textarea>
-    <textarea id="education" placeholder="Education (One per line)" oninput="generate()"></textarea>
-    <textarea id="experience" placeholder="Work Experience (One per line)" oninput="generate()"></textarea>
-    <textarea id="skills" placeholder="Skills (Comma separated)" oninput="generate()"></textarea>
+    <label>Professional Summary</label>
+    <textarea id="summary" placeholder="Highly motivated student..." oninput="generate()"></textarea>
+    
+    <label>Education (Use | to separate school and year)</label>
+    <textarea id="education" placeholder="Pwani University | 2024 – Present" oninput="generate()"></textarea>
+    
+    <label>Work Experience</label>
+    <textarea id="experience" placeholder="Project Developer | 2025" oninput="generate()"></textarea>
+    
+    <label>Skills (Comma separated)</label>
+    <textarea id="skills" placeholder="HTML, CSS, JavaScript, Git" oninput="generate()"></textarea>
 
     <div class="actions">
       <button onclick="downloadPDF()" class="btn-primary">Download PDF</button>
@@ -43,7 +53,7 @@
   </main>
 </div>
 
-<footer>© 2026 Oguma Austine. Created with passion.</footer>
+<footer>© 2026 Oguma Austine. Built with passion.</footer>
 
 <script src="script.js"></script>
 </body>
