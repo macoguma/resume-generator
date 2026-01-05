@@ -1,30 +1,72 @@
-function toList(text, splitBy = "\n") {
-  return text
-    .split(splitBy)
-    .filter(i => i.trim() !== "")
-    .map(i => `<li>${i.trim()}</li>`)
-    .join("");
+body {
+  font-family: Arial;
+  margin: 20px;
 }
 
-function generate() {
-  const resume = document.getElementById("resume");
-  const template = document.getElementById("template").value;
-  resume.className = template;
-
-  resume.innerHTML = `
-    <h1>${name.value}</h1>
-    <p>${email.value} | ${phone.value}</p>
-
-    <h3>Professional Summary</h3>
-    <p>${summary.value}</p>
-
-    <h3>Education</h3>
-    <ul>${toList(education.value)}</ul>
-
-    <h3>Experience</h3>
-    <ul>${toList(experience.value)}</ul>
-
-    <h3>Skills</h3>
-    <ul>${toList(skills.value, ",")}</ul>
-  `;
+input, textarea, select {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
 }
+
+#resume {
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+/* Classic template */
+.classic h1 {
+  text-align: center;
+}
+
+/* Modern template */
+.modern {
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+/* Footer styling */
+footer {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 40px;
+  color: #666;
+}
+
+/* Print-only rules */
+@media print {
+  input, textarea, select, button, h2, hr {
+    display: none;
+  }
+  body {
+    margin: 0;
+  }
+  footer {
+    display: none; /* hides footer in PDF */
+  }
+}
+
+/* Resume formatting */
+#resume h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+  color: #2c3e50;
+}
+
+#resume h3 {
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 3px;
+}
+
+#resume p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#resume ul {
+  margin-left: 20px;
+  font-size: 14px;
+    }
