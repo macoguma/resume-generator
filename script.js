@@ -29,7 +29,7 @@ function generate() {
 
     resume.innerHTML = `
         <h1>${vals.name}</h1>
-        <p style="text-align:center">
+        <p class="contact">
             ${vals.email}${vals.email && vals.phone ? ' | ' : ''}${vals.phone}
         </p>
         
@@ -41,25 +41,12 @@ function generate() {
 }
 
 function toggleTheme() {
-    document.body.classList.toggle("dark-mode");
-    const isDark = document.body.classList.contains("dark-mode");
+    const isDark = document.body.classList.toggle("dark-mode");
     document.getElementById("theme-toggle").innerText = isDark ? "☀️" : "🌙";
 }
 
-function downloadPDF() { window.print(); }
-
-function downloadWord() {
-    const { Document, Packer, Paragraph, HeadingLevel } = window.docx;
-    const name = document.getElementById("name").value || "Resume";
-    const doc = new Document({
-        sections: [{
-            children: [
-                new Paragraph({ text: name, heading: HeadingLevel.TITLE }),
-                new Paragraph(document.getElementById("summary").value),
-            ]
-        }]
-    });
-    Packer.toBlob(doc).then(blob => saveAs(blob, `${name}_Resume.docx`));
+function downloadPDF() {
+    window.print();
 }
 
 window.onload = generate;
