@@ -1,50 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Resume Generator</title>
-  <meta name="description" content="Oguma Austine's Resume Generator: Create professional resumes online with live preview, multiple templates, PDF and Word download, and cover letter generator.">
-  
-  <!-- Libraries for Word export -->
+  <meta charset="UTF-8">
+  <title>ProResume | Oguma Austine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.7.0/docx.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-  
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Resume Generator</h2>
-<p>Create your professional resume easily. Fill in your details, preview it live, switch between templates, and download your resume as a PDF or Word file instantly. Designed and created by Oguma Austine.</p>
+<div class="app-container">
+  <aside class="editor-side">
+    <h2>Resume Builder</h2>
+    
+    <div class="control-group">
+      <label>Template Style</label>
+      <select id="template" onchange="generate()">
+        <option value="classic">Classic Professional</option>
+        <option value="modern">Modern Minimalist</option>
+      </select>
+    </div>
 
-<select id="template" onchange="generate()">
-  <option value="classic">Classic</option>
-  <option value="modern">Modern</option>
-</select>
+    <input id="name" placeholder="Full Name" oninput="generate()">
+    <input id="email" placeholder="Email Address" oninput="generate()">
+    <input id="phone" placeholder="Phone Number" oninput="generate()">
 
-<input id="name" placeholder="Full Name" oninput="generate()">
-<input id="email" placeholder="Email" oninput="generate()">
-<input id="phone" placeholder="Phone" oninput="generate()">
+    <textarea id="summary" placeholder="Professional Summary..." oninput="generate()"></textarea>
+    <textarea id="education" placeholder="Education (One per line)" oninput="generate()"></textarea>
+    <textarea id="experience" placeholder="Work Experience (One per line)" oninput="generate()"></textarea>
+    <textarea id="skills" placeholder="Skills (Comma separated)" oninput="generate()"></textarea>
 
-<label for="summary">Professional Summary (example provided)</label>
-<textarea id="summary" 
-          placeholder="E.g., 'Motivated English Literature student with strong analytical skills and passion for writing and teaching. Experienced in research, creative writing, and effective communication.'" 
-          title="Write 2-3 sentences highlighting your skills, experience, and professional goals." 
-          oninput="generate()"></textarea>
+    <div class="actions">
+      <button onclick="downloadPDF()" class="btn-primary">Download PDF</button>
+      <button onclick="downloadWord()" class="btn-secondary">Word (.docx)</button>
+      <button onclick="generateCoverLetter()" class="btn-text">Cover Letter</button>
+    </div>
+  </aside>
 
-<textarea id="education" placeholder="Education (one per line)" oninput="generate()"></textarea>
-<textarea id="experience" placeholder="Experience (one per line)" oninput="generate()"></textarea>
-<textarea id="skills" placeholder="Skills (comma separated)" oninput="generate()"></textarea>
+  <main class="preview-side">
+    <div id="resume" class="classic"></div>
+  </main>
+</div>
 
-<button onclick="downloadPDF()">Download PDF</button>
-<button onclick="downloadWord()">Download Word (.docx)</button>
-<button onclick="generateCoverLetter()">Generate Cover Letter</button>
-
-<hr>
-
-<div id="resume" class="classic"></div>
-
-<footer>
-  © 2026 Oguma Austine. All rights reserved.
-</footer>
+<footer>© 2026 Oguma Austine. Created with passion.</footer>
 
 <script src="script.js"></script>
 </body>
