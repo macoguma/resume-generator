@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resume Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Resume Generator</h2>
+
+<select id="template" onchange="generate()">
+  <option value="classic">Classic</option>
+  <option value="modern">Modern</option>
+</select>
+
+<input id="name" placeholder="Full Name" oninput="generate()">
+<input id="email" placeholder="Email" oninput="generate()">
+<input id="phone" placeholder="Phone" oninput="generate()">
+
+<textarea id="summary" placeholder="Professional Summary" oninput="generate()"></textarea>
+<textarea id="education" placeholder="Education (one per line)" oninput="generate()"></textarea>
+<textarea id="experience" placeholder="Experience (one per line)" oninput="generate()"></textarea>
+<textarea id="skills" placeholder="Skills (comma separated)" oninput="generate()"></textarea>
+
+<button onclick="window.print()">Download PDF</button>
+
+<hr>
+
+<div id="resume" class="classic"></div>
+
+<footer>
+  © 2026 Oguma Austine. All rights reserved.
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
