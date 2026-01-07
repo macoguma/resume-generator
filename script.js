@@ -1,58 +1,106 @@
-function formatList(text) {
-    if (!text) return "";
-    return text.split("\n").filter(line => line.trim() !== "").map(line => {
-        if (line.includes("|")) {
-            const [title, year] = line.split("|");
-            return `<li style="display:flex; justify-content:space-between; margin-bottom:8px;"><strong>${title.trim()}</strong> <span>${year.trim()}</span></li>`;
-        }
-        return `<li style="margin-bottom:8px;">${line.trim()}</li>`;
-    }).join("");
+const fields = ['name','email','phone','summary','education','experience','skills'];
+let photoData = "";
+
+/* ===== Autosave ===== */
+function saveDraft() {
+  const data = {};
+  fields.forEach(id => data[id] = document.getElementById(id).value);
+  localStorage.setItem("resumeDraft", JSON.stringify(data));
+  localStorage.setItem("resumePhoto", photoData);
 }
 
+function loadDraft() {
+  const data = JSON.parse(localStorage.getItem("resumeDraft") || "{}");
+  fields.forEach(id => {
+    if (data[id]) document.getElementById(id).value = data[id];
+  });
+  const savedPhoto = localStorage.getItem("resumePhoto");
+  if (savedPhoto) photoData = savedPhoto;
+}
+
+window.onload = loadDraft;
+fields.forEach(id =>
+  document.getElementById(id).addEventListener("input", saveDraft)
+);
+
+/* ===== Photo Upload ===== */
+document.getElementById("photo").addEventListener("change", e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    photoData = reader.result;
+    saveDraft();
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ===== Resume Generation ===== */
 function generateContent() {
-    const resume = document.getElementById("resume");
-    const template = document.getElementById("template").value;
-    resume.className = template;
+  const r = document.getElementById("resume");
+  const get = id => document.getElementById(id).value;
 
-    const fields = ['name', 'email', 'phone', 'summary', 'education', 'experience', 'skills'];
-    const data = {};
-    fields.forEach(id => data[id] = document.getElementById(id).value);
+  r.className = "resume";
+  r.innerHTML = `
+    <aside class="left">
+      ${photoData ? `<img src="${photoData}" class="photo">` : ``}
 
-    const skillsHTML = data.skills ? 
-        `<div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;">${data.skills.split(',').map(s => `<span style="background:#f3f4f6; padding:4px 12px; border-radius:15px; font-size:12px; font-weight:bold; border:1px solid #d1d5db;">${s.trim()}</span>`).join("")}</div>` : '';
+      <div class="section">
+        <h3>Contact</h3>
+        <p>${get("email")}</p>
+        <p>${get("phone")}</p>
+      </div>
 
-    resume.innerHTML = `
-        <h1 style="text-align:center; margin-bottom:5px;">${data.name}</h1>
-        <p style="text-align:center; font-size:14px; margin-bottom:20px;">
-            ${data.email}${data.email && data.phone ? ' | ' : ''}${data.phone}
-        </p>
-        
-        ${data.summary ? `<div style="margin-top:20px;"><h3 style="border-bottom:2px solid #eee; text-transform:uppercase; font-size:14px; padding-bottom:5px;">Professional Summary</h3><p>${data.summary}</p></div>` : ''}
-        ${data.education ? `<div style="margin-top:20px;"><h3 style="border-bottom:2px solid #eee; text-transform:uppercase; font-size:14px; padding-bottom:5px;">Education</h3><ul style="list-style:none; padding:0;">${formatList(data.education)}</ul></div>` : ''}
-        ${data.experience ? `<div style="margin-top:20px;"><h3 style="border-bottom:2px solid #eee; text-transform:uppercase; font-size:14px; padding-bottom:5px;">Work Experience</h3><ul style="list-style:none; padding:0;">${formatList(data.experience)}</ul></div>` : ''}
-        ${data.skills ? `<div style="margin-top:20px;"><h3 style="border-bottom:2px solid #eee; text-transform:uppercase; font-size:14px; padding-bottom:5px;">Skills</h3>${skillsHTML}</div>` : ''}
-    `;
+      <div class="section">
+        <h3>Profile</h3>
+        <p>${get("summary")}</p>
+      </div>
+
+      <div class="section">
+        <h3>Skills</h3>
+        <ul>${get("skills").split(",").map(s=>`<li>${s.trim()}</li>`).join("")}</ul>
+      </div>
+    </aside>
+
+    <main class="right">
+      <h1>${get("name")}</h1>
+      <div class="job-title">Professional Resume</div>
+
+      <div class="section">
+        <h2>Experience</h2>
+        <ul>${formatList(get("experience"))}</ul>
+      </div>
+
+      <div class="section">
+        <h2>Education</h2>
+        <ul>${formatList(get("education"))}</ul>
+      </div>
+    </main>
+  `;
 }
 
-function showPreview() { generateContent(); window.print(); }
-function downloadPDF() { generateContent(); window.print(); }
+function formatList(text) {
+  return text.split("\n").filter(Boolean).map(line => {
+    if (line.includes("|")) {
+      const [a,b] = line.split("|");
+      return `<li><strong>${a.trim()}</strong> <span>${b.trim()}</span></li>`;
+    }
+    return `<li>${line}</li>`;
+  }).join("");
+}
+
+function downloadPDF() {
+  generateContent();
+  window.print();
+}
 
 function clearAll() {
-    if(confirm("Are you sure you want to clear all information?")) {
-        const fields = ['name', 'email', 'phone', 'summary', 'education', 'experience', 'skills'];
-        fields.forEach(id => document.getElementById(id).value = "");
-    }
+  if (!confirm("Clear all data?")) return;
+  fields.forEach(id => document.getElementById(id).value = "");
+  photoData = "";
+  localStorage.clear();
 }
 
 function toggleTheme() {
-    document.body.classList.toggle("light-mode");
-    const btn = document.getElementById("theme-toggle");
-    btn.innerText = document.body.classList.contains("light-mode") ? "🌙" : "☀️";
-}
-
-function downloadWord() {
-    generateContent();
-    const name = document.getElementById("name").value || "Resume";
-    alert("Word download started for " + name);
-    // Add full docx logic here if needed
+  document.body.classList.toggle("light-mode");
 }
