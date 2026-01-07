@@ -29,10 +29,6 @@
   }
   </script>
 
-  <!-- Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.7.0/docx.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -41,51 +37,43 @@
 <div class="app-container">
   <header class="app-header">
     <h1>Resume Builder</h1>
-    <button id="theme-toggle" onclick="toggleTheme()" class="btn-icon">🌙</button>
+    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
   </header>
 
-  <main class="editor-main">
+  <main>
     <div class="input-group">
       <select id="template">
-        <option value="classic">Classic Professional</option>
-        <option value="modern">Modern Minimalist</option>
+        <option value="two-column">Professional Two-Column</option>
       </select>
+
       <input id="name" placeholder="Full Name">
       <input id="email" placeholder="Email Address">
       <input id="phone" placeholder="Phone Number">
+      <input type="file" id="photo" accept="image/*">
     </div>
 
     <div class="input-group">
-      <textarea id="summary" placeholder="Professional Summary..."></textarea>
+      <textarea id="summary" placeholder="Profile Summary"></textarea>
       <textarea id="education" placeholder="Education (School | Year)"></textarea>
       <textarea id="experience" placeholder="Experience (Role | Year)"></textarea>
-      <textarea id="skills" placeholder="Skills (Comma separated)"></textarea>
+      <textarea id="skills" placeholder="Skills (comma separated)"></textarea>
     </div>
 
     <div class="action-grid">
-      <button onclick="showPreview()" class="btn-preview">See Preview</button>
-      <div class="download-btns">
-        <button onclick="downloadPDF()" class="btn-primary">Save PDF</button>
-        <button onclick="downloadWord()" class="btn-secondary">Save Word</button>
-      </div>
-      <button onclick="clearAll()" class="btn-clear">Clear All</button>
+      <button onclick="downloadPDF()">Save PDF</button>
+      <button onclick="clearAll()" class="danger">Clear All</button>
     </div>
   </main>
 
   <footer class="site-footer">
-    <p>
-      © 2026 Created by
-      <a href="https://macoguma.github.io/success-/" rel="author me">
-        Oguma Austine
-      </a>
-    </p>
+    © 2026 Created by <span class="footer-author">Oguma Austine</span>
   </footer>
 </div>
 
-<div id="print-area" style="display:none;">
+<div id="print-area">
   <div id="resume"></div>
 </div>
 
 <script src="script.js"></script>
 </body>
-          </html>
+  </html>    
