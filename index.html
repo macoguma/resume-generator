@@ -5,14 +5,14 @@
   <title>Resume Generator | Oguma Austine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Search Console -->
+  <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="oiWYhCtfS262uMqPnqn1LVKEsLxnD2frYo6lhX384Qg" />
 
   <!-- SEO -->
   <meta name="author" content="Oguma Austine">
   <meta name="description" content="Resume Generator is a free online resume builder created by Oguma Austine to help users create professional resumes easily.">
 
-  <!-- Schema -->
+  <!-- SoftwareApplication Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -36,39 +36,32 @@
 
 <div class="app-container">
   <header class="app-header">
-    <h1 id="app-title">Resume Builder</h1>
-
-    <div class="header-actions">
-      <select id="language-switch">
-        <option value="en">EN</option>
-        <option value="sw">SW</option>
-      </select>
-      <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
-    </div>
+    <h1>Resume Builder</h1>
+    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
   </header>
 
   <main>
     <div class="input-group">
-      <input type="file" id="photo" accept="image/*">
+      <select id="template">
+        <option value="two-column">Professional Two-Column</option>
+      </select>
+
       <input id="name" placeholder="Full Name">
-      <input id="title" placeholder="Job Title">
       <input id="email" placeholder="Email Address">
       <input id="phone" placeholder="Phone Number">
+      <input type="file" id="photo" accept="image/*">
     </div>
 
     <div class="input-group">
-      <textarea id="summary" placeholder="Professional Summary"></textarea>
-      <textarea id="education" placeholder="Education (Year | Institution | Description)"></textarea>
-      <textarea id="experience" placeholder="Experience (Year | Role | Description)"></textarea>
-      <textarea id="skills" placeholder="Skills (Comma separated)"></textarea>
-      <textarea id="languages" placeholder="Languages (Comma separated)"></textarea>
+      <textarea id="summary" placeholder="Profile Summary"></textarea>
+      <textarea id="education" placeholder="Education (School | Year)"></textarea>
+      <textarea id="experience" placeholder="Experience (Role | Year)"></textarea>
+      <textarea id="skills" placeholder="Skills (comma separated)"></textarea>
     </div>
 
-    <div class="actions">
-      <button onclick="previewResume()" class="btn-preview">Preview Resume</button>
-      <button onclick="downloadPDF()" class="btn-primary">Save PDF</button>
-      <button onclick="downloadWord()" class="btn-secondary">Save Word</button>
-      <button onclick="clearAll()" class="btn-clear">Clear All</button>
+    <div class="action-grid">
+      <button onclick="downloadPDF()">Save PDF</button>
+      <button onclick="clearAll()" class="danger">Clear All</button>
     </div>
   </main>
 
