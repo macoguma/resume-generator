@@ -1,66 +1,106 @@
-let lang = localStorage.getItem("lang") || "en";
+const fields = ['name','email','phone','summary','education','experience','skills'];
+let photoData = "";
 
-const labels = {
-  en: {
-    summary: "Professional Summary",
-    education: "Education",
-    experience: "Experience",
-    skills: "Skills",
-    languages: "Languages"
-  },
-  sw: {
-    summary: "Muhtasari wa Kitaaluma",
-    education: "Elimu",
-    experience: "Uzoefu wa Kazi",
-    skills: "Ujuzi",
-    languages: "Lugha"
-  }
-};
-
-document.getElementById("language-switch").value = lang;
-document.getElementById("language-switch").onchange = e => {
-  lang = e.target.value;
-  localStorage.setItem("lang", lang);
-};
-
-function previewResume() {
-  generateResume();
-  document.getElementById("print-area").style.display = "block";
+/* ===== Autosave ===== */
+function saveDraft() {
+  const data = {};
+  fields.forEach(id => data[id] = document.getElementById(id).value);
+  localStorage.setItem("resumeDraft", JSON.stringify(data));
+  localStorage.setItem("resumePhoto", photoData);
 }
 
-function generateResume() {
+function loadDraft() {
+  const data = JSON.parse(localStorage.getItem("resumeDraft") || "{}");
+  fields.forEach(id => {
+    if (data[id]) document.getElementById(id).value = data[id];
+  });
+  const savedPhoto = localStorage.getItem("resumePhoto");
+  if (savedPhoto) photoData = savedPhoto;
+}
+
+window.onload = loadDraft;
+fields.forEach(id =>
+  document.getElementById(id).addEventListener("input", saveDraft)
+);
+
+/* ===== Photo Upload ===== */
+document.getElementById("photo").addEventListener("change", e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    photoData = reader.result;
+    saveDraft();
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ===== Resume Generation ===== */
+function generateContent() {
   const r = document.getElementById("resume");
-
   const get = id => document.getElementById(id).value;
-  const section = (title, content) =>
-    content ? `<h3>${title}</h3><p>${content.replace(/\n/g,"<br>")}</p>` : "";
 
+  r.className = "resume";
   r.innerHTML = `
-    <h1>${get("name")}</h1>
-    <h2>${get("title")}</h2>
+    <aside class="left">
+      ${photoData ? `<img src="${photoData}" class="photo">` : ``}
 
-    ${section(labels[lang].summary, get("summary"))}
-    ${section(labels[lang].education, get("education"))}
-    ${section(labels[lang].experience, get("experience"))}
-    ${section(labels[lang].skills, get("skills"))}
-    ${section(labels[lang].languages, get("languages"))}
+      <div class="section">
+        <h3>Contact</h3>
+        <p>${get("email")}</p>
+        <p>${get("phone")}</p>
+      </div>
+
+      <div class="section">
+        <h3>Profile</h3>
+        <p>${get("summary")}</p>
+      </div>
+
+      <div class="section">
+        <h3>Skills</h3>
+        <ul>${get("skills").split(",").map(s=>`<li>${s.trim()}</li>`).join("")}</ul>
+      </div>
+    </aside>
+
+    <main class="right">
+      <h1>${get("name")}</h1>
+      <div class="job-title">Professional Resume</div>
+
+      <div class="section">
+        <h2>Experience</h2>
+        <ul>${formatList(get("experience"))}</ul>
+      </div>
+
+      <div class="section">
+        <h2>Education</h2>
+        <ul>${formatList(get("education"))}</ul>
+      </div>
+    </main>
   `;
 }
 
-function downloadPDF() {
-  generateResume();
-  window.print();
+function formatList(text) {
+  return text.split("\n").filter(Boolean).map(line => {
+    if (line.includes("|")) {
+      const [a,b] = line.split("|");
+      return `<li><strong>${a.trim()}</strong> <span>${b.trim()}</span></li>`;
+    }
+    return `<li>${line}</li>`;
+  }).join("");
 }
 
-function downloadWord() {
-  alert("Word export ready (docx logic can be added here).");
+function downloadPDF() {
+  generateContent();
+  window.print();
 }
 
 function clearAll() {
   if (!confirm("Clear all data?")) return;
-  document.querySelectorAll("input, textarea").forEach(el => el.value = "");
+  fields.forEach(id => document.getElementById(id).value = "");
+  photoData = "";
+  localStorage.clear();
 }
 
 function toggleTheme() {
-  document.body.classList.toggle("dark");
+  document.body.classList.toggle("light-mode");
 }
