@@ -1,22 +1,25 @@
 :root {
-  --primary: #0f4c75;
-  --accent: #3282b8;
+  --bg: #111827;
+  --card: #1f2937;
+  --text: #f9fafb;
+  --accent: #0e8a99;
+}
+
+body.light-mode {
   --bg: #f3f4f6;
   --card: #ffffff;
   --text: #111827;
-  --border: #d1d5db;
-  --danger: #ef4444;
 }
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
 
 .app-container {
-  max-width: 720px;
+  max-width: 600px;
   margin: auto;
   padding: 20px;
   min-height: 100vh;
@@ -30,66 +33,98 @@ body {
   align-items: center;
 }
 
-.header-actions {
-  display: flex;
-  gap: 10px;
+.input-group {
+  background: var(--card);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
 }
 
 input, textarea, select {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  padding: 10px;
   border-radius: 8px;
-  border: 1px solid var(--border);
+  border: 1px solid #ccc;
 }
 
-textarea { height: 90px; }
+textarea { height: 80px; }
 
-.input-group {
-  background: var(--card);
-  padding: 20px;
-  border-radius: 14px;
-  margin-bottom: 15px;
-}
-
-.actions {
+.action-grid {
   display: flex;
-  flex-direction: column;
   gap: 10px;
 }
 
 button {
+  flex: 1;
   padding: 14px;
-  border-radius: 10px;
-  border: none;
   font-weight: bold;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
 }
 
-.btn-preview { background: #374151; color: white; }
-.btn-primary { background: var(--primary); color: white; }
-.btn-secondary { background: var(--accent); color: white; }
-.btn-clear { border: 1px solid var(--danger); color: var(--danger); background: transparent; }
-
-.site-footer {
-  text-align: center;
-  margin-top: auto;
-  font-size: 13px;
-  color: #6b7280;
+.danger {
+  background: #ef4444;
+  color: white;
 }
 
-.footer-author { cursor: default; }
+.site-footer {
+  margin-top: auto;
+  text-align: center;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.footer-author {
+  font-weight: 500;
+}
+
+/* ===== Resume ===== */
 
 #print-area { display: none; }
 
-#resume {
-  width: 210mm;
+.resume {
+  display: grid;
+  grid-template-columns: 35% 65%;
   min-height: 297mm;
-  background: white;
-  padding: 20mm;
+}
+
+.left {
+  background: #f3fafa;
+  padding: 25px;
+  font-size: 13px;
+}
+
+.right {
+  padding: 30px;
+}
+
+.photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ddd;
+  margin-bottom: 20px;
+}
+
+.section h3, .section h2 {
+  border-bottom: 2px solid var(--accent);
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.job-title {
+  background: var(--accent);
+  color: white;
+  padding: 8px;
+  margin-bottom: 20px;
 }
 
 @media print {
+  body { background: white; }
   .app-container { display: none; }
   #print-area { display: block; }
-}
+  }
