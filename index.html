@@ -5,14 +5,14 @@
   <title>Resume Generator | Oguma Austine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Search Console Verification -->
-  <meta name="google-site-verification" content="oiWYhCtfS262uMqPnqn1LVKEsLxnD2frYo6lhX384Qg" />
+  <!-- Google Search Console -->
+  <meta name="google-site-verification" content="oiWYhCtfS262uMqPnqn1LVKEsLxnD2frYo6lhX384Qg">
 
   <!-- SEO -->
   <meta name="author" content="Oguma Austine">
-  <meta name="description" content="Resume Generator is a free online resume builder created by Oguma Austine to help users create professional resumes easily.">
+  <meta name="description" content="Free online resume builder by Oguma Austine. Create professional resumes instantly with autosave, dark mode, and PDF export.">
 
-  <!-- SoftwareApplication Schema -->
+  <!-- Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -37,26 +37,41 @@
 <div class="app-container">
   <header class="app-header">
     <h1>Resume Builder</h1>
-    <button id="theme-toggle" onclick="toggleTheme()">🌙</button>
+    <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
   </header>
 
   <main>
     <div class="input-group">
+      <label>Template</label>
       <select id="template">
         <option value="two-column">Professional Two-Column</option>
       </select>
 
-      <input id="name" placeholder="Full Name">
-      <input id="email" placeholder="Email Address">
+      <label>Full Name</label>
+      <input id="name" required placeholder="Full Name">
+
+      <label>Email</label>
+      <input id="email" type="email" required placeholder="Email Address">
+
+      <label>Phone</label>
       <input id="phone" placeholder="Phone Number">
+
+      <label>Photo</label>
       <input type="file" id="photo" accept="image/*">
     </div>
 
     <div class="input-group">
-      <textarea id="summary" placeholder="Profile Summary"></textarea>
-      <textarea id="education" placeholder="Education (School | Year)"></textarea>
-      <textarea id="experience" placeholder="Experience (Role | Year)"></textarea>
-      <textarea id="skills" placeholder="Skills (comma separated)"></textarea>
+      <label>Profile Summary</label>
+      <textarea id="summary" placeholder="Short professional summary"></textarea>
+
+      <label>Education</label>
+      <textarea id="education" placeholder="Institution | Year"></textarea>
+
+      <label>Experience</label>
+      <textarea id="experience" placeholder="Role | Year"></textarea>
+
+      <label>Skills</label>
+      <textarea id="skills" placeholder="Comma separated skills"></textarea>
     </div>
 
     <div class="action-grid">
