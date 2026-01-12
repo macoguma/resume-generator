@@ -5,14 +5,10 @@
   <title>Resume Generator | Oguma Austine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Search Console -->
   <meta name="google-site-verification" content="oiWYhCtfS262uMqPnqn1LVKEsLxnD2frYo6lhX384Qg">
-
-  <!-- SEO -->
   <meta name="author" content="Oguma Austine">
-  <meta name="description" content="Free online resume builder by Oguma Austine. Create professional resumes instantly with autosave, dark mode, and PDF export.">
+  <meta name="description" content="Free online resume builder by Oguma Austine with live preview and multiple professional templates.">
 
-  <!-- Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -20,11 +16,9 @@
     "name": "Resume Generator",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
-    "url": "https://macoguma.github.io/resume-generator/",
     "creator": {
       "@type": "Person",
-      "name": "Oguma Austine",
-      "url": "https://macoguma.github.io/success-/"
+      "name": "Oguma Austine"
     }
   }
   </script>
@@ -37,21 +31,23 @@
 <div class="app-container">
   <header class="app-header">
     <h1>Resume Builder</h1>
-    <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+    <button onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
   </header>
 
   <main>
     <div class="input-group">
-      <label>Template</label>
+      <label>Resume Template</label>
       <select id="template">
-        <option value="two-column">Professional Two-Column</option>
+        <option value="template-one">Professional Two-Column</option>
+        <option value="template-two">Modern Minimal</option>
+        <option value="template-three">Creative Accent</option>
       </select>
 
       <label>Full Name</label>
-      <input id="name" required placeholder="Full Name">
+      <input id="name" placeholder="Full Name">
 
       <label>Email</label>
-      <input id="email" type="email" required placeholder="Email Address">
+      <input id="email" type="email" placeholder="Email Address">
 
       <label>Phone</label>
       <input id="phone" placeholder="Phone Number">
@@ -62,16 +58,16 @@
 
     <div class="input-group">
       <label>Profile Summary</label>
-      <textarea id="summary" placeholder="Short professional summary"></textarea>
+      <textarea id="summary"></textarea>
 
-      <label>Education</label>
-      <textarea id="education" placeholder="Institution | Year"></textarea>
+      <label>Education (Each on new line)</label>
+      <textarea id="education" placeholder="University | Year"></textarea>
 
       <label>Experience</label>
       <textarea id="experience" placeholder="Role | Year"></textarea>
 
-      <label>Skills</label>
-      <textarea id="skills" placeholder="Comma separated skills"></textarea>
+      <label>Skills (Comma separated)</label>
+      <textarea id="skills"></textarea>
     </div>
 
     <div class="action-grid">
@@ -85,6 +81,7 @@
   </footer>
 </div>
 
+<!-- LIVE PREVIEW -->
 <div id="print-area">
   <div id="resume"></div>
 </div>
