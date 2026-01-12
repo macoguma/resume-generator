@@ -1,148 +1,148 @@
 :root {
-  --bg: #111827;
-  --card: #1f2937;
-  --text: #f9fafb;
-  --accent: #0e8a99;
+  --bg:#111827;
+  --card:#1f2937;
+  --text:#f9fafb;
+  --accent:#0e8a99;
 }
 
 body.light-mode {
-  --bg: #f3f4f6;
-  --card: #ffffff;
-  --text: #111827;
+  --bg:#f3f4f6;
+  --card:#ffffff;
+  --text:#111827;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
+/* App UI */
 .app-container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  max-width:600px;
+  margin:auto;
+  padding:20px;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
 }
 
 .app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .input-group {
-  background: var(--card);
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 15px;
+  background:var(--card);
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:15px;
 }
 
-label {
-  font-size: 13px;
-  opacity: .8;
-}
+label { font-size:13px; opacity:.8; }
 
 input, textarea, select {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  width:100%;
+  margin-bottom:10px;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
 }
 
-textarea { height: 80px; }
-
 .action-grid {
-  display: flex;
-  gap: 10px;
+  display:flex;
+  gap:10px;
 }
 
 button {
-  flex: 1;
-  padding: 14px;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
+  padding:14px;
+  font-weight:bold;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
 }
 
-button:hover {
-  opacity: .9;
-}
-
-.danger {
-  background: #ef4444;
-  color: white;
-}
+.danger { background:#ef4444; color:#fff; }
 
 .site-footer {
-  margin-top: auto;
-  text-align: center;
-  font-size: 13px;
-  color: #9ca3af;
+  margin-top:auto;
+  text-align:center;
+  font-size:13px;
+  color:#9ca3af;
 }
 
-.footer-author {
-  font-weight: 500;
-}
-
-/* ===== Resume ===== */
-#print-area { display: none; }
+/* ===== Resume Base ===== */
+#print-area { display:none; }
 
 .resume {
-  display: grid;
-  grid-template-columns: 35% 65%;
-  min-height: 297mm;
+  min-height:297mm;
+  padding:30px;
+  background:#fff;
+  color:#000;
+  font-size:14px;
 }
 
-.left {
-  background: #f3fafa;
-  padding: 25px;
-  font-size: 13px;
-}
-
-.right {
-  padding: 30px;
+.resume-header {
+  text-align:center;
+  margin-bottom:25px;
 }
 
 .photo {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #ddd;
-  margin-bottom: 20px;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:10px;
 }
 
-.section {
-  break-inside: avoid;
+.resume-body section {
+  margin-bottom:20px;
 }
 
-.section h3, .section h2 {
-  border-bottom: 2px solid var(--accent);
-  text-transform: uppercase;
-  font-size: 14px;
-  margin-top: 20px;
+.resume-body h2 {
+  border-bottom:2px solid var(--accent);
+  text-transform:uppercase;
+  font-size:14px;
 }
 
-.job-title {
-  background: var(--accent);
-  color: white;
-  padding: 8px;
-  margin-bottom: 20px;
+/* ===== TEMPLATE 1 ===== */
+.template-one .resume-body {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
 }
 
-/* ===== Print ===== */
-@page {
-  size: A4;
-  margin: 15mm;
+/* ===== TEMPLATE 2 ===== */
+.template-two .resume-body {
+  display:block;
 }
+
+/* ===== TEMPLATE 3 ===== */
+.template-three {
+  border-left:8px solid var(--accent);
+}
+
+/* Skills */
+.skills {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.skills li {
+  background:var(--accent);
+  color:white;
+  padding:5px 10px;
+  border-radius:20px;
+  list-style:none;
+}
+
+/* Print */
+@page { size:A4; margin:15mm; }
 
 @media print {
-  body { background: white; }
-  .app-container { display: none; }
-  #print-area { display: block; }
+  body { background:white; }
+  .app-container { display:none; }
+  #print-area { display:block; }
 }
