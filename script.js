@@ -1,6 +1,13 @@
 const fields = ['name','email','phone','summary','education','experience','skills'];
 let photoData = "";
 
+/* ===== Utilities ===== */
+function escapeHTML(str="") {
+  return str.replace(/[&<>"']/g, m =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])
+  );
+}
+
 /* ===== Autosave ===== */
 function saveDraft() {
   const data = {};
@@ -16,14 +23,19 @@ function loadDraft() {
   });
   const savedPhoto = localStorage.getItem("resumePhoto");
   if (savedPhoto) photoData = savedPhoto;
+
+  if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+  }
 }
 
 window.onload = loadDraft;
+
 fields.forEach(id =>
   document.getElementById(id).addEventListener("input", saveDraft)
 );
 
-/* ===== Photo Upload ===== */
+/* ===== Photo ===== */
 document.getElementById("photo").addEventListener("change", e => {
   const file = e.target.files[0];
   if (!file) return;
@@ -36,9 +48,19 @@ document.getElementById("photo").addEventListener("change", e => {
 });
 
 /* ===== Resume Generation ===== */
+function formatList(text) {
+  return escapeHTML(text).split("\n").filter(Boolean).map(line => {
+    if (line.includes("|")) {
+      const [a,b] = line.split("|");
+      return `<li><strong>${a.trim()}</strong> <span>${b.trim()}</span></li>`;
+    }
+    return `<li>${line}</li>`;
+  }).join("");
+}
+
 function generateContent() {
   const r = document.getElementById("resume");
-  const get = id => document.getElementById(id).value;
+  const get = id => escapeHTML(document.getElementById(id).value);
 
   r.className = "resume";
   r.innerHTML = `
@@ -68,28 +90,22 @@ function generateContent() {
 
       <div class="section">
         <h2>Experience</h2>
-        <ul>${formatList(get("experience"))}</ul>
+        <ul>${formatList(document.getElementById("experience").value)}</ul>
       </div>
 
       <div class="section">
         <h2>Education</h2>
-        <ul>${formatList(get("education"))}</ul>
+        <ul>${formatList(document.getElementById("education").value)}</ul>
       </div>
     </main>
   `;
 }
 
-function formatList(text) {
-  return text.split("\n").filter(Boolean).map(line => {
-    if (line.includes("|")) {
-      const [a,b] = line.split("|");
-      return `<li><strong>${a.trim()}</strong> <span>${b.trim()}</span></li>`;
-    }
-    return `<li>${line}</li>`;
-  }).join("");
-}
-
 function downloadPDF() {
+  if (!document.getElementById("name").value.trim()) {
+    alert("Please enter your name first.");
+    return;
+  }
   generateContent();
   window.print();
 }
@@ -101,6 +117,11 @@ function clearAll() {
   localStorage.clear();
 }
 
+/* ===== Theme ===== */
 function toggleTheme() {
   document.body.classList.toggle("light-mode");
-}
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("light-mode") ? "light" : "dark"
+  );
+        }
