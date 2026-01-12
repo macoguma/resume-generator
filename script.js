@@ -1,4 +1,4 @@
-const fields = ['name','email','phone','summary','education','experience','skills'];
+const fields = ['name','email','phone','summary','education','experience','skills','template'];
 let photoData = "";
 
 /* ===== Utilities ===== */
@@ -21,19 +21,26 @@ function loadDraft() {
   fields.forEach(id => {
     if (data[id]) document.getElementById(id).value = data[id];
   });
+
   const savedPhoto = localStorage.getItem("resumePhoto");
   if (savedPhoto) photoData = savedPhoto;
 
   if (localStorage.getItem("theme") === "light") {
     document.body.classList.add("light-mode");
   }
+
+  generateContent();
 }
 
 window.onload = loadDraft;
 
-fields.forEach(id =>
-  document.getElementById(id).addEventListener("input", saveDraft)
-);
+/* ===== Live Preview ===== */
+fields.forEach(id => {
+  document.getElementById(id).addEventListener("input", () => {
+    saveDraft();
+    generateContent();
+  });
+});
 
 /* ===== Photo ===== */
 document.getElementById("photo").addEventListener("change", e => {
@@ -43,11 +50,12 @@ document.getElementById("photo").addEventListener("change", e => {
   reader.onload = () => {
     photoData = reader.result;
     saveDraft();
+    generateContent();
   };
   reader.readAsDataURL(file);
 });
 
-/* ===== Resume Generation ===== */
+/* ===== Helpers ===== */
 function formatList(text) {
   return escapeHTML(text).split("\n").filter(Boolean).map(line => {
     if (line.includes("|")) {
@@ -58,55 +66,52 @@ function formatList(text) {
   }).join("");
 }
 
+/* ===== Resume Generator ===== */
 function generateContent() {
   const r = document.getElementById("resume");
-  const get = id => escapeHTML(document.getElementById(id).value);
+  const t = document.getElementById("template").value;
+  const g = id => escapeHTML(document.getElementById(id).value);
 
-  r.className = "resume";
+  r.className = `resume ${t}`;
   r.innerHTML = `
-    <aside class="left">
+    <div class="resume-header">
       ${photoData ? `<img src="${photoData}" class="photo">` : ``}
+      <h1>${g("name")}</h1>
+      <p>${g("email")} | ${g("phone")}</p>
+    </div>
 
-      <div class="section">
-        <h3>Contact</h3>
-        <p>${get("email")}</p>
-        <p>${get("phone")}</p>
-      </div>
+    <div class="resume-body">
+      <section>
+        <h2>Profile</h2>
+        <p>${g("summary")}</p>
+      </section>
 
-      <div class="section">
-        <h3>Profile</h3>
-        <p>${get("summary")}</p>
-      </div>
-
-      <div class="section">
-        <h3>Skills</h3>
-        <ul>${get("skills").split(",").map(s=>`<li>${s.trim()}</li>`).join("")}</ul>
-      </div>
-    </aside>
-
-    <main class="right">
-      <h1>${get("name")}</h1>
-      <div class="job-title">Professional Resume</div>
-
-      <div class="section">
+      <section>
         <h2>Experience</h2>
         <ul>${formatList(document.getElementById("experience").value)}</ul>
-      </div>
+      </section>
 
-      <div class="section">
+      <section>
         <h2>Education</h2>
         <ul>${formatList(document.getElementById("education").value)}</ul>
-      </div>
-    </main>
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <ul class="skills">
+          ${g("skills").split(",").map(s=>`<li>${s.trim()}</li>`).join("")}
+        </ul>
+      </section>
+    </div>
   `;
 }
 
+/* ===== Actions ===== */
 function downloadPDF() {
   if (!document.getElementById("name").value.trim()) {
     alert("Please enter your name first.");
     return;
   }
-  generateContent();
   window.print();
 }
 
@@ -115,6 +120,7 @@ function clearAll() {
   fields.forEach(id => document.getElementById(id).value = "");
   photoData = "";
   localStorage.clear();
+  generateContent();
 }
 
 /* ===== Theme ===== */
@@ -124,4 +130,4 @@ function toggleTheme() {
     "theme",
     document.body.classList.contains("light-mode") ? "light" : "dark"
   );
-        }
+               }
